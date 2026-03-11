@@ -10,34 +10,34 @@
 //Mode_(PoolMode::MODE_FIXED)
 //{}
 //ThreadPool::~ThreadPool() {}
-////¿ªÆôÏß³Ì³Ø
+////å¼€å¯çº¿ç¨‹æ± 
 //void ThreadPool:: start(int initTreadsize)
 //{
-//	initTreadsize_ = initTreadsize;//´«Èë³õÊ¼Ïß³ÌÊıÁ¿
+//	initTreadsize_ = initTreadsize;//ä¼ å…¥åˆå§‹çº¿ç¨‹æ•°é‡
 //	for (int i = 0; i < initTreadsize; i++)
 //	{
 //		treads_.emplace_back(new Thread<decltype(std::bind(&ThreadPool::treadhandler, this,i))>
-//			(std::bind(&ThreadPool::treadhandler,this,i)));//´´½¨Ïß³Ì·Åµ½Ïß³ÌÁĞ±í
+//			(std::bind(&ThreadPool::treadhandler,this,i)));//åˆ›å»ºçº¿ç¨‹æ”¾åˆ°çº¿ç¨‹åˆ—è¡¨
 //
 //	}
 //
 //	for (int i = 0; i < initTreadsize; i++)
 //	{
-//		treads_[i]->start();//¿ªÆôËùÓĞÏß³Ì
+//		treads_[i]->start();//å¼€å¯æ‰€æœ‰çº¿ç¨‹
 //	}
 //
 //}
-////ÉèÖÃÏß³Ì³ØÄ£Ê½
+////è®¾ç½®çº¿ç¨‹æ± æ¨¡å¼
 //void ThreadPool::setPoolMode(PoolMode Mode)
 //{
 //	Mode_ = Mode;
 //}
-////Ìá½»ÈÎÎñ(ÈÎÎñÒ»°ãÔÚ¶ÑÉÏ½¨Á¢) 
+////æäº¤ä»»åŠ¡(ä»»åŠ¡ä¸€èˆ¬åœ¨å †ä¸Šå»ºç«‹) 
 //void ThreadPool::submitTask(std::shared_ptr<Task>task)
 //{
 //
 //}
-////ÉèÖÃÈÎÎñ¶ÓÁĞµÄÉÏÏŞãĞÖµ
+////è®¾ç½®ä»»åŠ¡é˜Ÿåˆ—çš„ä¸Šé™é˜ˆå€¼
 //void ThreadPool::setTaskquemaxsize(int Taskquemaxsize) 
 //{
 //	Taskquemaxsize_ = Taskquemaxsize;

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #define MAX_QUE_SIZE 2
 #include "2threadpool.h"
 
@@ -259,11 +260,3 @@ void ThreadPool::setStae(bool state_)
 	state = state_;
 }
 
-
-//int main()
-//{
-//	ThreadPool pool{};
-//	pool.start(4);
-//
-//	std::this_thread::sleep_for(std::chrono::seconds(5));
-//}

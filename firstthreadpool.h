@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #ifndef THREAD_H
 #define THREAD_H
 
@@ -203,5 +204,3 @@ public:
 	void setStae(bool state_);
 };
 #endif
-//
-//

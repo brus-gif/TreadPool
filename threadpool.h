@@ -119,7 +119,7 @@ public:
 			Tasksize_++;
 			std::cout << "success submition!" << std::endl;
 			notempty.notify_all();
-			if (1.5 * curfreethreadnum < Tasksize_)
+			if (1.5 * curfreethreadnum > Tasksize_&& curfreethreadnum!=0)
 			{
 				st.notify_one();
 			}

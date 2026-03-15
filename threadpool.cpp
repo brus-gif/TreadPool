@@ -97,7 +97,6 @@ void ThreadPool::treadhandler(int thread_id)
 		lasttime = std::chrono::high_resolution_clock().now();
 	}
 	curthreadnum--;
-	curfreethreadnum--;
 }
 
 
@@ -121,7 +120,6 @@ void ThreadPool::setinitTreadsize(int initTreadsize)
 		return;
 	}
 	initTreadsize_ = initTreadsize;
-	curfreethreadnum = initTreadsize;
 	curthreadnum = initTreadsize;
 }
 Thread::Thread(threadFunc fun, int id)
@@ -154,34 +152,39 @@ void ThreadPool::stewardhandler()
 	while (state)
 	{
 		std::unique_lock<std::mutex>lock(steconitor);
-
-		if (curfreethreadnum < Tasksize_ && 1.5 * curfreethreadnum >= Tasksize_)
+		
+		 if (1.5 * curfreethreadnum < Tasksize_)
 		{
 			notempty.notify_all();
-		}
-		else if (1.5 * curfreethreadnum < Tasksize_)
-		{
-			notempty.notify_all();
-			for (int i = 0; i < 4; i++)
+			if(Mode_== PoolMode::MODE_COACHED)
 			{
+				for (int i = 0; i < 4; i++)
+				{
 				int id = Thread::AddId();
 				treads_.emplace(id, std::make_unique< Thread>(std::bind(&ThreadPool::treadhandler, this, std::placeholders::_1), id));
 				treads_[id]->start(id);
 				curthreadnum++;
 				std::cout << "add thread" << std::endl;
+				}
+			
 			}
+			
 
 		}
 
-
-		std::stack<int>* sck = stew->get_stack();
-		while (!sck->empty())
-		{
-			treads_.erase(sck->top());
-			sck->pop();
-			std::cout << "steward succeed destroy the thread!" << std::endl;
-		}
+		 if (Mode_ == PoolMode::MODE_COACHED)
+		 {
+			 std::stack<int>* sck = stew->get_stack();
+			 while (!sck->empty())
+			 {
+				 treads_.erase(sck->top());
+				 sck->pop();
+				 std::cout << "steward succeed destroy the thread!" << std::endl;
+			 }
+		 }
 		st.wait_for(lock, std::chrono::seconds(2));
+		
+		
 	}
 
 
